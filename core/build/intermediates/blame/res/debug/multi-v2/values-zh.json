@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/zhangxindang/bf_workspace/corepro/core/build/intermediates/res/merged/debug/values-zh/values-zh.xml",
+            "outputFile": "/Users/zhangxindang/Desktop/core_lib/core_libary/core/build/intermediates/res/merged/debug/values-zh/values-zh.xml",
             "map": [
                 {
-                    "source": "/Users/zhangxindang/bf_workspace/corepro/core/src/main/res/values-zh/strings.xml",
+                    "source": "/Users/zhangxindang/Desktop/core_lib/core_libary/core/src/main/res/values-zh/strings.xml",
                     "from": {
                         "startLines": "19,18,15,14,12,16,10,13,11,6,5,3,1,2,4,8,7",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,10 +23,10 @@
             ]
         },
         {
-            "outputFile": "/Users/zhangxindang/bf_workspace/corepro/core/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh/values-zh.xml",
+            "outputFile": "/Users/zhangxindang/Desktop/core_lib/core_libary/core/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh/values-zh.xml",
             "map": [
                 {
-                    "source": "/Users/zhangxindang/bf_workspace/corepro/core/src/main/res/values-zh/strings.xml",
+                    "source": "/Users/zhangxindang/Desktop/core_lib/core_libary/core/src/main/res/values-zh/strings.xml",
                     "from": {
                         "startLines": "19,18,15,14,12,16,10,13,11,6,5,3,1,2,4,8,7",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

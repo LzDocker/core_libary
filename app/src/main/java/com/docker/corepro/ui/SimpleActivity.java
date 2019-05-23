@@ -91,5 +91,8 @@ public class SimpleActivity extends HivsBaseActivity<SimpleViewModel, ActivitySi
         adapter.add(arrayList);
 //        mBinding.empty.showError();
 //        mBinding.empty.getRetryView().setOnClickListener(v->{mBinding.empty.hide();});
+
+        //todo git test
+
     }
 }

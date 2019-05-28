@@ -63,7 +63,7 @@ public abstract class NetworkBoundResourceAuto<ResultType> {
         LiveData<ApiResponse<ResultType>> apiResponse = createSpecCall();
         result.addSource(apiResponse, response -> {
             result.removeSource(apiResponse);
-            if (response != null && response.isSuccessful() &&response.body != null) {
+            if (response != null && response.isSuccessful() && response.body != null) {
                 setZoneValue(Resource.success((ResultType) response.body));
             } else {
                 onFetchFailed();
@@ -90,7 +90,7 @@ public abstract class NetworkBoundResourceAuto<ResultType> {
         result.addSource(apiResponse, response -> {
             result.removeSource(apiResponse);
             if (response.isSuccessful() && response.body != null) {
-                if (response != null && response.body.getErrno() != null && Integer.parseInt(response.body.getErrno()) < 0) { // bussiness error
+                if (response != null && response.body.getErrno() != null && Integer.parseInt(response.body.getErrno()) != 0) { // bussiness error
                     result.addSource(apiResponse,
                             newData -> {
                                 result.removeSource(apiResponse);
@@ -200,7 +200,7 @@ public abstract class NetworkBoundResourceAuto<ResultType> {
         result.addSource(apiResponse, response -> {
             result.removeSource(apiResponse);
             if (response.isSuccessful()) {
-                if (Integer.parseInt(response.body.getErrno()) < 0) { // bussiness error
+                if (Integer.parseInt(response.body.getErrno()) != 0) { // bussiness error
                     onFetchNetFailed(0, response);
                 } else {
                     appExecutors.diskIO().execute(() -> {

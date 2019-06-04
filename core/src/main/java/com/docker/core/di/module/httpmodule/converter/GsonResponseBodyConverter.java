@@ -17,7 +17,10 @@ package com.docker.core.di.module.httpmodule.converter;
 
 import android.util.Log;
 
+import com.blankj.utilcode.util.GsonUtils;
+import com.docker.core.di.module.httpmodule.ApiResponse;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 
@@ -40,14 +43,17 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     @Override
     public T convert(ResponseBody value) throws IOException {
         String s = value.string();
-        Log.d("ResponseBody: " , s);
+        Log.d("ResponseBody: ", s);
         Reader reader = new StringReader(s);
         JsonReader jsonReader = gson.newJsonReader(reader);
+
         try {
             return adapter.read(jsonReader);
         } catch (Exception e) {
-            Log.d("ResponseBody", "convert: 数据解析异常"+ getClass().getGenericSuperclass());
+            Log.d("ResponseBody", "convert: 数据解析异常" + getClass().getGenericSuperclass());
             e.printStackTrace();
+
+
             return null;
         } finally {
             value.close();

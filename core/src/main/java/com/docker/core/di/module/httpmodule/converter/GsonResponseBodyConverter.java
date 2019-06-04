@@ -53,8 +53,7 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
             Log.d("ResponseBody", "convert: 数据解析异常" + getClass().getGenericSuperclass());
             e.printStackTrace();
 
-
-            return null;
+            return (T) s;
         } finally {
             value.close();
         }

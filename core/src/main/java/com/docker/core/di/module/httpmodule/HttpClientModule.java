@@ -17,7 +17,6 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class HttpClientModule {
@@ -36,7 +35,7 @@ public class HttpClientModule {
                 .baseUrl(httpUrl)
                 .client(client)
                 .addCallAdapterFactory(new LiveDataCallAdapterFactory())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(com.docker.core.di.module.httpmodule.converter.GsonConverterFactory.create())
                 .build();
     }
 

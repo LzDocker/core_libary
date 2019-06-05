@@ -1,5 +1,6 @@
 package com.docker.core.binding.recycle;
 
+import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 
 /**
@@ -100,6 +101,15 @@ public class ItemViewArg<T> {
         @LayoutRes
         private int layoutRes;
 
+        private ViewDataBinding binding;
+
+        public ViewDataBinding getBinding() {
+            return binding;
+        }
+
+        public void setBinding(ViewDataBinding binding) {
+            this.binding = binding;
+        }
 
         public static ItemView of(int bindingVariable, @LayoutRes int layoutRes) {
             return new ItemView().setBindingVariable(bindingVariable).setLayoutRes(layoutRes);

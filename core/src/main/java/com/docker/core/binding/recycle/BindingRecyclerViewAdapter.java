@@ -131,7 +131,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
 
     @Override
     public long getItemId(int position) {
-        return itemViewArg.layoutRes();
+        return position;
     }
 
 

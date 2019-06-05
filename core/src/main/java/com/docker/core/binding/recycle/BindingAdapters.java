@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class BindingAdapters {
     @SuppressWarnings("unchecked")
-    @BindingAdapter(value = {"itemView", "items", "itemAnimator", "itemDecor"}, requireAll = false)
-    public static <T> void setAdapter(final RecyclerView recyclerView, ItemViewArg<T> arg, final List<T> items, RecyclerView.ItemAnimator animator, RecyclerView.ItemDecoration decor) {
+    @BindingAdapter(value = {"itemView", "items", "itemAnimator", "itemDecor" ,"rvflg"}, requireAll = false)
+    public static <T> void setAdapter(final RecyclerView recyclerView, ItemViewArg<T> arg, final List<T> items, RecyclerView.ItemAnimator animator, RecyclerView.ItemDecoration decor,boolean rvflag) {
         if (arg == null) {
             throw new IllegalArgumentException("itemView must not be null");
         }
@@ -20,7 +20,7 @@ public class BindingAdapters {
         if (items != null) adapter.setItems(items);
         if (animator != null) recyclerView.setItemAnimator(animator);
         if (decor != null) recyclerView.addItemDecoration(decor);
-        if(recyclerView.getAdapter()==null){
+        if(recyclerView.getAdapter()==null || rvflag){
             recyclerView.setAdapter(adapter);
         }
     }

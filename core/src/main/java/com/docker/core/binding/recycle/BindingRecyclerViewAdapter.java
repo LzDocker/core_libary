@@ -63,7 +63,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
     public final void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         T item = items.get(position);
         ViewDataBinding binding = DataBindingUtil.getBinding(viewHolder.itemView);
-
+        viewHolder.setIsRecyclable(false);
         if (itemViewArg.bindingVariable() != ItemViewArg.ItemView.BINDING_VARIABLE_NONE) {
             boolean result = binding.setVariable(itemViewArg.bindingVariable(), item);
             if (!result) {

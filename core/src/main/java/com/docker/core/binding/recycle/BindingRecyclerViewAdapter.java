@@ -32,13 +32,19 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
         this.itemViewArg = arg;
     }
 
+    private boolean rvflag = false;
+
+    public void setRecycleFlag(boolean flag) {
+        this.rvflag = flag;
+    }
+
     @Override
     public final RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int layoutId) {
         if (inflater == null) {
             inflater = LayoutInflater.from(viewGroup.getContext());
         }
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, layoutId, viewGroup, false);
-        final RecyclerView.ViewHolder holder=new BindingViewHolder(binding);
+        final RecyclerView.ViewHolder holder = new BindingViewHolder(binding);
         binding.addOnRebindCallback(new OnRebindCallback() {
             @Override
             public boolean onPreBind(ViewDataBinding binding) {
@@ -63,7 +69,9 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
     public final void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         T item = items.get(position);
         ViewDataBinding binding = DataBindingUtil.getBinding(viewHolder.itemView);
-//        viewHolder.setIsRecyclable(false);
+        if(rvflag){
+         viewHolder.setIsRecyclable(false);
+        }
         if (itemViewArg.bindingVariable() != ItemViewArg.ItemView.BINDING_VARIABLE_NONE) {
             boolean result = binding.setVariable(itemViewArg.bindingVariable(), item);
             if (!result) {
@@ -72,7 +80,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
             binding.executePendingBindings();
         }
 
-        if(itemViewArg.eventBindingVariable()!=ItemViewArg.ItemView.BINDING_VARIABLE_NONE){
+        if (itemViewArg.eventBindingVariable() != ItemViewArg.ItemView.BINDING_VARIABLE_NONE) {
             boolean result = binding.setVariable(itemViewArg.eventBindingVariable(), itemViewArg.eventTargetBindingVariable());
             if (!result) {
                 Utils.throwMissingVariable(binding, itemViewArg.eventBindingVariable(), itemViewArg.layoutRes());
@@ -102,6 +110,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
         }
         this.items = items;
     }
+
     @Override
     public int getItemCount() {
         return items == null ? 0 : items.size();

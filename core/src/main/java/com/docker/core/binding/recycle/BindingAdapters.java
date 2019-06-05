@@ -20,7 +20,8 @@ public class BindingAdapters {
         if (items != null) adapter.setItems(items);
         if (animator != null) recyclerView.setItemAnimator(animator);
         if (decor != null) recyclerView.addItemDecoration(decor);
-        if(recyclerView.getAdapter()==null || rvflag){
+        if(recyclerView.getAdapter()==null){
+            adapter.setRecycleFlag(rvflag);
             recyclerView.setAdapter(adapter);
         }
     }

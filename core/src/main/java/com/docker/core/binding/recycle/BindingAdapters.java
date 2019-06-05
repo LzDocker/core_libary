@@ -21,7 +21,6 @@ public class BindingAdapters {
         if (animator != null) recyclerView.setItemAnimator(animator);
         if (decor != null) recyclerView.addItemDecoration(decor);
         if(recyclerView.getAdapter()==null){
-            adapter.setHasStableIds(true);
             recyclerView.setAdapter(adapter);
         }
     }

@@ -52,8 +52,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
                 }
                 int position = holder.getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-//                    notifyItemChanged(position, DATA_INVALIDATION);
-                    notifyDataSetChanged();
+                    notifyItemChanged(position, DATA_INVALIDATION);
                 }
             }
         });
@@ -132,7 +131,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return itemViewArg.layoutRes();
     }
 
 

@@ -1,5 +1,6 @@
 package com.docker.core.binding.recycle;
 
+import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 
 /**
@@ -9,6 +10,7 @@ public class ItemViewArg<T> {
     public static <T> ItemViewArg<T> of(ItemView itemView) {
         return new ItemViewArg<>(itemView);
     }
+
     public static <T> ItemViewArg<T> of(ItemViewSelector<T> selector) {
         return new ItemViewArg<>(selector);
     }
@@ -43,6 +45,12 @@ public class ItemViewArg<T> {
     public int bindingVariable() {
         return itemView.bindingVariable();
     }
+
+    public void setBinding(ViewDataBinding dataBinding) {
+        this.itemView.setBinding(dataBinding);
+    }
+
+    ;
 
     public int eventBindingVariable() {
         return itemView.eventBindingVariable();
@@ -117,7 +125,7 @@ public class ItemViewArg<T> {
             return this;
         }
 
-        public ItemView setEventBindingVariable(int bindingVariable,Object target) {
+        public ItemView setEventBindingVariable(int bindingVariable, Object target) {
             this.eventBindingVariable = bindingVariable;
             this.targetObj = target;
             return this;
@@ -140,6 +148,17 @@ public class ItemViewArg<T> {
         public Object eventTargetBindingVariable() {
             return targetObj;
         }
+
+        public ViewDataBinding getBinding() {
+            return viewDataBinding;
+        }
+
+        public void setBinding(ViewDataBinding viewDataBinding) {
+            this.viewDataBinding = viewDataBinding;
+        }
+
+        private ViewDataBinding viewDataBinding;
+
         @LayoutRes
         public int layoutRes() {
             return layoutRes;

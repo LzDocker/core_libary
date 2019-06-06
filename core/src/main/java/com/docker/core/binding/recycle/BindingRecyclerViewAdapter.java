@@ -69,6 +69,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
     public final void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         T item = items.get(position);
         ViewDataBinding binding = DataBindingUtil.getBinding(viewHolder.itemView);
+        itemViewArg.setBinding(binding);
         if(rvflag){
          viewHolder.setIsRecyclable(false);
         }
@@ -135,8 +136,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
     @Override
     public int getItemViewType(int position) {
         itemViewArg.select(position, items.get(position));
-        return position;
-//        return itemViewArg.layoutRes();
+        return itemViewArg.layoutRes();
     }
 
     @Override

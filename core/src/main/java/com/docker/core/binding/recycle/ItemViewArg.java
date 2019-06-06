@@ -30,6 +30,11 @@ public class ItemViewArg<T> {
             public int viewTypeCount() {
                 return 1;
             }
+
+            @Override
+            public void onBind(ViewDataBinding binding,int position) {
+
+            }
         };
     }
 
@@ -46,11 +51,9 @@ public class ItemViewArg<T> {
         return itemView.bindingVariable();
     }
 
-    public void setBinding(ViewDataBinding dataBinding) {
-        this.itemView.setBinding(dataBinding);
-    }
-
-    ;
+    public void setBinding(ViewDataBinding dataBinding,int position) {
+        selector.onBind(dataBinding,position);
+    };
 
     public int eventBindingVariable() {
         return itemView.eventBindingVariable();
@@ -91,8 +94,10 @@ public class ItemViewArg<T> {
 
         void select(ItemView itemView, int position, T item);
 
-
         int viewTypeCount();
+
+        void onBind(ViewDataBinding binding,int position);
+
     }
 
     public static class ItemView {

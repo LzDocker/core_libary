@@ -44,6 +44,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
             inflater = LayoutInflater.from(viewGroup.getContext());
         }
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, layoutId, viewGroup, false);
+        itemViewArg.setBinding(binding);
         final RecyclerView.ViewHolder holder = new BindingViewHolder(binding);
         binding.addOnRebindCallback(new OnRebindCallback() {
             @Override
@@ -94,6 +95,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List<Object> payloads) {
         if (isForDataBinding(payloads)) {
             ViewDataBinding binding = DataBindingUtil.getBinding(holder.itemView);
+            itemViewArg.setBinding(binding);
             binding.executePendingBindings();
         } else {
             super.onBindViewHolder(holder, position, payloads);

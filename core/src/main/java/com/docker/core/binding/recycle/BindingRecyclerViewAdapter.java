@@ -135,7 +135,8 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
     @Override
     public int getItemViewType(int position) {
         itemViewArg.select(position, items.get(position));
-        return itemViewArg.layoutRes();
+        return position;
+//        return itemViewArg.layoutRes();
     }
 
     @Override

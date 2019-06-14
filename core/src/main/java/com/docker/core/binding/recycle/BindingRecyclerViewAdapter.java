@@ -72,7 +72,7 @@ public class BindingRecyclerViewAdapter<T> extends RecyclerView.Adapter<Recycler
         if(rvflag){
          viewHolder.setIsRecyclable(false);
         }
-        itemViewArg.setBinding(binding,position);
+//        itemViewArg.setBinding(binding,position);
         if (itemViewArg.bindingVariable() != ItemViewArg.ItemView.BINDING_VARIABLE_NONE) {
             boolean result = binding.setVariable(itemViewArg.bindingVariable(), item);
             if (!result) {

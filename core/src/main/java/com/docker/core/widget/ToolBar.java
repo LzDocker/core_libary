@@ -88,7 +88,7 @@ public class ToolBar {
         if (this.mIvRight != null) {
             this.mIvRight.setImageResource(resId);
             this.mIvRight.setOnClickListener(onClickListener);
-            this.mIvRight.setVisibility(View.GONE);
+            this.mIvRight.setVisibility(View.VISIBLE);
         }
 
         return this.mTvRight;

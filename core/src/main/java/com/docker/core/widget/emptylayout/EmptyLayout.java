@@ -219,4 +219,12 @@ public class EmptyLayout extends LinearLayout {
     public void setOnretryListener(OnretryListener onretryListener) {
         this.onretryListener = onretryListener;
     }
+
+    public void setNodataTip(String tips) {
+        mbinding.commonTvNodata.setText(tips);
+    }
+
+    public TextView getNodateTv() {
+        return mbinding.commonTvNodata;
+    }
 }

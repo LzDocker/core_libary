@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/zhangxindang/Desktop/core_lib/core_libary/core/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/ic_back.png",
+        "source": "/Users/zhangxindang/Desktop/core_lib/core_libary/core/src/main/res/mipmap-xhdpi/ic_back.png"
+    },
+    {
+        "merged": "/Users/zhangxindang/Desktop/core_lib/core_libary/core/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/ic_toolbar_back.png",
+        "source": "/Users/zhangxindang/Desktop/core_lib/core_libary/core/src/main/res/mipmap-xhdpi/ic_toolbar_back.png"
+    }
+]

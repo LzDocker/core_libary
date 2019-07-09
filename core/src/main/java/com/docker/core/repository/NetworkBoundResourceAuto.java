@@ -97,7 +97,7 @@ public abstract class NetworkBoundResourceAuto<ResultType> {
                                 setZoneValue(Resource.bussinessError(response.body.getErrmsg(), null));
                             });
                 } else {
-                    setZoneValue(Resource.success((ResultType) response.body.getRst()));
+                    setZoneValue(Resource.success((ResultType) response.body.getRst(), response.body.getErrmsg()));
                 }
             } else {
                 onFetchFailed();
@@ -333,6 +333,10 @@ public abstract class NetworkBoundResourceAuto<ResultType> {
 
     @NonNull
     @MainThread
-    protected  LiveData<ApiResponse<ResultType>> createSpecCall(){return null;};
+    protected LiveData<ApiResponse<ResultType>> createSpecCall() {
+        return null;
+    }
+
+    ;
 }
 

@@ -35,11 +35,16 @@ public class Resource<T> {
         return new Resource<>(ERROR, data, msg);
     }
 
-    public static <T> Resource<T> loading(@Nullable String msg,@Nullable T data) {
+    public static <T> Resource<T> loading(@Nullable String msg, @Nullable T data) {
         return new Resource<>(LOADING, data, msg);
     }
 
     public static <T> Resource<T> bussinessError(String msg, @Nullable T data) {
         return new Resource<>(BUSSINESSERROR, data, msg);
     }
+
+    public static <T> Resource<T> success(@NonNull T data, String message) {
+        return new Resource<>(SUCCESS, data, message);
+    }
+
 }

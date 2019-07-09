@@ -25,6 +25,7 @@ public class HivsNetBoundObserver<T> implements android.arch.lifecycle.Observer<
                 }
                 break;
             case SUCCESS:
+                netBoundCallback.onComplete();
                 netBoundCallback.onComplete(tResource);
                 break;
             case BUSSINESSERROR:

@@ -5,4 +5,26 @@
             name="camera_photos"
             path="" />
     </paths>
+
+    <external-path
+        name="files_root"
+        path="Android/data/com.docker.corepro/" />
+    <external-path
+        name="external_storage_root"
+        path="." />
+    <external-path
+        name="files_root"
+        path="Android/data/." />
+    <root-path
+        name="root-path"
+        path="" />
+    <external-path
+        name="apk"
+        path="." />
+    <external-path
+        name="files_root"
+        path="Android/data/com.docker.corepro/" />
+    <external-path
+        name="external_storage_root"
+        path="." />
 </resources>

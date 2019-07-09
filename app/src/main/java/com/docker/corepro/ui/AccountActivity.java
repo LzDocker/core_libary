@@ -107,7 +107,7 @@ public class AccountActivity extends HivsBaseActivity<AccountViewModel, Activity
 //        startActivity(intent);
 
 //        testpickImage();
-//        initUpdate();
+        initUpdate();
 //        bottomSheetDialog bottomSheetDialog = new bottomSheetDialog();
 //        bottomSheetDialog.setDataCallback(new String[]{"111", "222"}, new bottomSheetDialog.ChooseCallback() {
 //            @Override
@@ -172,7 +172,7 @@ public class AccountActivity extends HivsBaseActivity<AccountViewModel, Activity
     }
 
     private void initUpdate() {
-        this.getLifecycle().addObserver(versionManager.Bind(this, this, mViewModel.checkUpdate(), VersionManager.TYPE_NOTIFYACTION));
+        this.getLifecycle().addObserver(versionManager.Bind(this, this, mViewModel.checkUpdate(), VersionManager.TYPE_DIALOG));
     }
 
 
@@ -426,6 +426,13 @@ public class AccountActivity extends HivsBaseActivity<AccountViewModel, Activity
 
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10086 && resultCode == RESULT_OK) {
+            versionManager.install();
+        }
+    }
 
 
     @Override

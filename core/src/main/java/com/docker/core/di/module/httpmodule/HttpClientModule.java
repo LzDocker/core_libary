@@ -1,11 +1,14 @@
 package com.docker.core.di.module.httpmodule;
 
 import android.content.Context;
+
 import com.docker.core.di.module.cookie.CookieJarImpl;
 import com.docker.core.di.module.cookie.PersistentCookieStore;
 import com.google.gson.Gson;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
@@ -43,19 +46,22 @@ public class HttpClientModule {
     @Provides
     OkHttpClient provideClient(OkHttpClient.Builder okHttpClient, Interceptor intercept
             , List<Interceptor> interceptors, CookieJar cookieJar) {
-        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
+//        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
         OkHttpClient.Builder builder = okHttpClient
                 .connectTimeout(60000L, TimeUnit.MILLISECONDS)
                 .readTimeout(60000L, TimeUnit.MILLISECONDS)
                 .cookieJar(cookieJar)
                 .retryOnConnectionFailure(true)
-                .hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                })
-                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//配置
+                .hostnameVerifier(SSLSocketClient.getHostnameVerifier())//配置
+
+//                .hostnameVerifier(new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                })
+//                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                 .addInterceptor(intercept);
 
         if (interceptors != null && interceptors.size() > 0) {

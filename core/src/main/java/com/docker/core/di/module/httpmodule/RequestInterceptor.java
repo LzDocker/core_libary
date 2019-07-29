@@ -3,6 +3,8 @@ package com.docker.core.di.module.httpmodule;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
+
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -14,6 +16,7 @@ import javax.inject.Singleton;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -60,7 +63,7 @@ public class RequestInterceptor implements Interceptor {
             if (mHttpRequestHandler != null) {
                 mHttpRequestHandler.onHttpResultResponse(responseBody.toString(), chain, originalResponse);
             }
-            Log.d("Request: " , request.toString()+ "Headers:-----" + bodyToString(request.headers()) + "----Params:" + bodyToString(request.body()));
+            Log.d("Request: ", request.toString() + "Headers:-----" + bodyToString(request.headers()) + "----Params:" + bodyToString(request.body()));
 
             return originalResponse;
         } else {
@@ -73,13 +76,30 @@ public class RequestInterceptor implements Interceptor {
             if (mHttpRequestHandler != null) {
                 mHttpRequestHandler.onHttpResultResponse(responseBody.toString(), chain, originalResponse);
             }
-            Log.d("Request: " ,  originrequest.toString()+"Headers:------" + bodyToString(originrequest.headers()) + "----Params:" + bodyToString(originrequest.body()));
+            Log.d("Request: ", originrequest.toString() + "Headers:------" + bodyToString(originrequest.headers()) + "----Params:" + bodyToString(originrequest.body()));
 
             return originalResponse;
         }
-
-
     }
+
+
+    private static String getUserAgent() {
+        String userAgent = "";
+        StringBuffer sb = new StringBuffer();
+        userAgent = System.getProperty("http.agent");//Dalvik/2.1.0 (Linux; U; Android 6.0.1; vivo X9L Build/MMB29M)
+        for (int i = 0, length = userAgent.length(); i < length; i++) {
+            char c = userAgent.charAt(i);
+            if (c <= '\u001f' || c >= '\u007f') {
+                sb.append(String.format("\\u%04x", (int) c));
+            } else {
+                sb.append(c);
+            }
+
+        }
+//        LogUtils.tag("xxx").e("User-Agent","User-Agent: "+ sb.toString());
+        return sb.toString();
+    }
+
 
     private static String bodyToString(RequestBody request) {
         try {
@@ -100,9 +120,9 @@ public class RequestInterceptor implements Interceptor {
         StringBuilder stringBuilder = new StringBuilder();
         Iterator var3 = params.entrySet().iterator();
 
-        while(var3.hasNext()) {
-            Map.Entry<String, List<String>> entry = (Map.Entry)var3.next();
-            stringBuilder.append((String)entry.getKey()).append(":").append(entry.getValue());
+        while (var3.hasNext()) {
+            Map.Entry<String, List<String>> entry = (Map.Entry) var3.next();
+            stringBuilder.append((String) entry.getKey()).append(":").append(entry.getValue());
         }
         return stringBuilder.toString();
     }

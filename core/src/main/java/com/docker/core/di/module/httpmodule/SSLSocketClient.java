@@ -13,45 +13,29 @@ import javax.net.ssl.X509TrustManager;
 public class SSLSocketClient {
 
     //获取这个SSLSocketFactory
-    public static SSLSocketFactory getSSLSocketFactory() {
+    public static class MyTrustManager implements X509TrustManager {
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType) {}
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) {}
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {return new X509Certificate[0];}
+    }
+
+
+    public static SSLSocketFactory createSSLSocketFactory() {
+        SSLSocketFactory ssfFactory = null;
         try {
-            SSLContext sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, getTrustManager(), new SecureRandom());
-            return sslContext.getSocketFactory();
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, new TrustManager[]{new MyTrustManager()}, new SecureRandom());
+            ssfFactory = sc.getSocketFactory();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+
+        return ssfFactory;
     }
 
-    //获取TrustManager
-    private static TrustManager[] getTrustManager() {
-        TrustManager[] trustAllCerts = new TrustManager[]{
-                new X509TrustManager() {
-                    @Override
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) {
-                    }
-
-                    @Override
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) {
-                    }
-
-                    @Override
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[]{};
-                    }
-                }
-        };
-        return trustAllCerts;
-    }
-
-    //获取HostnameVerifier
-    public static HostnameVerifier getHostnameVerifier() {
-        HostnameVerifier hostnameVerifier = new HostnameVerifier() {
-            @Override
-            public boolean verify(String s, SSLSession sslSession) {
-                return true;
-            }
-        };
-        return hostnameVerifier;
-    }
 }

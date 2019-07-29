@@ -315,15 +315,16 @@ public abstract class NetworkBoundResourceAuto<ResultType> {
     @MainThread
     private LiveData<ApiResponse<BaseResponse<ResultType>>> loadFromDb() {
         final MediatorLiveData<ApiResponse<BaseResponse<ResultType>>> responseMediatorLiveData = new MediatorLiveData<>();
-        LiveData<CacheEntity> souce = cacheDatabase.cacheEntityDao().LoadCache(cachekey);
-        responseMediatorLiveData.addSource(souce, newdata -> {
-            responseMediatorLiveData.removeSource(souce);
-            if (newdata != null && newdata.getData() != null) {
-                responseMediatorLiveData.setValue((ApiResponse<BaseResponse<ResultType>>) IOUtils.toObject(newdata.getData()));
-            } else {
-                responseMediatorLiveData.setValue(null);
-            }
-        });
+        CacheEntity souce = cacheDatabase.cacheEntityDao().LoadCache(cachekey);
+        responseMediatorLiveData.setValue((ApiResponse<BaseResponse<ResultType>>) IOUtils.toObject(souce.getData()));
+//        responseMediatorLiveData.addSource(souce, newdata -> {
+//            responseMediatorLiveData.removeSource(souce);
+//            if (newdata != null && newdata.getData() != null) {
+//                responseMediatorLiveData.setValue((ApiResponse<BaseResponse<ResultType>>) IOUtils.toObject(newdata.getData()));
+//            } else {
+//                responseMediatorLiveData.setValue(null);
+//            }
+//        });
         return responseMediatorLiveData;
     }
 

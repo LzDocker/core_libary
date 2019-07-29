@@ -97,17 +97,19 @@ public class AccountActivity extends HivsBaseActivity<AccountViewModel, Activity
 
     public void click(View view) {
 
-        RegisterVo registerVo =  new RegisterVo();
-        registerVo.setPassword("12345678");
-        registerVo.setRepassword("12345678");
-        registerVo.setUsername("123454321");
+        mViewModel.Login();
 
-       mViewModel.registerqq(registerVo);
+//        RegisterVo registerVo =  new RegisterVo();
+//        registerVo.setPassword("12345678");
+//        registerVo.setRepassword("12345678");
+//        registerVo.setUsername("123454321");
+//
+//       mViewModel.registerqq(registerVo);
 //        Intent intent = new Intent(AccountActivity.this, SimpleActivity.class);
 //        startActivity(intent);
 
 //        testpickImage();
-        initUpdate();
+//        initUpdate();
 //        bottomSheetDialog bottomSheetDialog = new bottomSheetDialog();
 //        bottomSheetDialog.setDataCallback(new String[]{"111", "222"}, new bottomSheetDialog.ChooseCallback() {
 //            @Override

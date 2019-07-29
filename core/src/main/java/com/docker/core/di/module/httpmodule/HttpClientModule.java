@@ -6,12 +6,19 @@ import com.docker.core.di.module.cookie.CookieJarImpl;
 import com.docker.core.di.module.cookie.PersistentCookieStore;
 import com.google.gson.Gson;
 
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -42,6 +49,41 @@ public class HttpClientModule {
                 .build();
     }
 
+
+
+    private SSLSocketFactory createSSLSocketFactory() {
+        SSLSocketFactory ssfFactory = null;
+        try {
+            MyTrustManager  mMyTrustManager = new MyTrustManager();
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, new TrustManager[]{mMyTrustManager}, new SecureRandom());
+            ssfFactory = sc.getSocketFactory();
+        } catch (Exception ignored) {
+            ignored.printStackTrace();
+        }
+
+        return ssfFactory;
+    }
+
+    //实现X509TrustManager接口
+    public static class MyTrustManager implements X509TrustManager {
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+    }
+
+
+
+
     @Singleton
     @Provides
     OkHttpClient provideClient(OkHttpClient.Builder okHttpClient, Interceptor intercept
@@ -52,8 +94,13 @@ public class HttpClientModule {
                 .readTimeout(60000L, TimeUnit.MILLISECONDS)
                 .cookieJar(cookieJar)
                 .retryOnConnectionFailure(true)
-                .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//配置
-                .hostnameVerifier(SSLSocketClient.getHostnameVerifier())//配置
+                .sslSocketFactory(createSSLSocketFactory(), new MyTrustManager())
+                .hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                })
 
 //                .hostnameVerifier(new HostnameVerifier() {
 //                    @Override

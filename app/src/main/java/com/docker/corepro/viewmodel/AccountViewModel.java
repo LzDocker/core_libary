@@ -6,8 +6,13 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.Transformations;
+import android.util.Log;
 
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.CacheMemoryStaticUtils;
+import com.blankj.utilcode.util.EncryptUtils;
 import com.docker.core.base.basehivs.HivsBaseViewModel;
+import com.docker.core.base.basehivs.HivsNetBoundObserver;
 import com.docker.core.repository.CommonRepository;
 import com.docker.core.repository.Resource;
 import com.docker.core.util.ViewEventResouce;
@@ -21,6 +26,8 @@ import com.docker.corepro.vo.LoginParam;
 import com.docker.corepro.vo.LoginVo;
 import com.docker.corepro.vo.RegisterVo;
 import com.docker.corepro.vo.SpecLoginVo;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -47,7 +54,7 @@ public class AccountViewModel extends HivsBaseViewModel {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void create() {
-        showDialogWait("11111",true);
+        showDialogWait("11111", true);
 //        hideDialogWait();
     }
 
@@ -107,19 +114,19 @@ public class AccountViewModel extends HivsBaseViewModel {
     }
 
     public void registerqq(RegisterVo input) {
-       showDialogWait("-------",true);
+        showDialogWait("-------", true);
         mResourceLiveData.addSource(commonRepository.noneChache(service.register(input.getUsername(), input.getPassword(),
                 input.getRepassword())), new NetBoundObserver<>(new NetBoundCallback<LoginVo>() {
 
 
             @Override
             public void onBusinessError(Resource<LoginVo> resource) {
-             hideDialogWait();
+                hideDialogWait();
             }
 
             @Override
             public void onNetworkError(Resource<LoginVo> resource) {
-              hideDialogWait();
+                hideDialogWait();
             }
 
             @Override
@@ -135,4 +142,36 @@ public class AccountViewModel extends HivsBaseViewModel {
     public void initCommand() {
 
     }
+
+
+    public void Login() {
+        showDialogWait("登录中...", false);
+        HashMap<String, String> param = new HashMap<>();
+        param.put("username", "15210666053");
+        param.put("password", EncryptUtils.encryptMD5ToString("zxd1234567"));
+        param.put("clientType", "2");
+        param.put("version", AppUtils.getAppVersionCode() + "");
+//        param.put("udid", "ssssssssssssssssssssssssssssssssssssssss");
+//        param.put("area_code", "+86");
+//        param.put("source", "1");
+        mResourceLiveData.addSource(
+                commonRepository.noneChache(
+                        service.login(param)), new HivsNetBoundObserver<>(new NetBoundCallback<Object>(this) {
+                    @Override
+                    public void onComplete(Resource<Object> resource) {
+                        super.onComplete(resource);
+                        if (resource.data != null) {
+                            Log.d("sss", "onComplete: --------------------");
+                        }
+                        hideDialogWait();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                        hideDialogWait();
+                    }
+                }));
+    }
+
 }

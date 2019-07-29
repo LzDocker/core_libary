@@ -34,7 +34,6 @@ public class CacheEntity implements Serializable {
         this.key = key;
     }
 
-
     public long getCid() {
         return cid;
     }
@@ -42,6 +41,5 @@ public class CacheEntity implements Serializable {
     public void setCid(long cid) {
         this.cid = cid;
     }
-
 
 }

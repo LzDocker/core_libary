@@ -7,9 +7,12 @@ import com.docker.core.di.module.httpmodule.BaseResponse;
 import com.docker.corepro.vo.LoginVo;
 import com.docker.corepro.vo.SpecLoginVo;
 
+import java.util.HashMap;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -21,7 +24,6 @@ import retrofit2.http.Url;
  */
 
 public interface AccountService {
-
 
 
     @POST("user/register")
@@ -37,4 +39,12 @@ public interface AccountService {
     @GET
     @Streaming
     Call<ResponseBody> downApk(@Url String url);
+
+
+    /*
+     * 登录
+     * */
+    @POST("api.php?m=login")
+    @FormUrlEncoded
+    LiveData<ApiResponse<BaseResponse<Object>>> login(@FieldMap HashMap<String, String> paramMap);
 }

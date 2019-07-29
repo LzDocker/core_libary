@@ -304,27 +304,28 @@ public abstract class NetworkBoundResourceAuto<ResultType> {
 
     @WorkerThread
     private void saveCallResult(@NonNull ApiResponse<BaseResponse<ResultType>> response) {
-        CacheEntity cacheEntity = new CacheEntity();
-        cacheEntity.setKey(cachekey);
+        appExecutors.diskIO().execute(() -> {
+            CacheEntity cacheEntity = new CacheEntity();
+            cacheEntity.setKey(cachekey);
+            cacheEntity.setData(IOUtils.toByteArray(response));
+            cacheDatabase.cacheEntityDao().insertCache(cacheEntity);
+        });
 
-        cacheEntity.setData(IOUtils.toByteArray(response));
-        cacheDatabase.cacheEntityDao().insertCache(cacheEntity);
     }
 
     @NonNull
     @MainThread
     private LiveData<ApiResponse<BaseResponse<ResultType>>> loadFromDb() {
         final MediatorLiveData<ApiResponse<BaseResponse<ResultType>>> responseMediatorLiveData = new MediatorLiveData<>();
-        CacheEntity souce = cacheDatabase.cacheEntityDao().LoadCache(cachekey);
-        responseMediatorLiveData.setValue((ApiResponse<BaseResponse<ResultType>>) IOUtils.toObject(souce.getData()));
-//        responseMediatorLiveData.addSource(souce, newdata -> {
-//            responseMediatorLiveData.removeSource(souce);
-//            if (newdata != null && newdata.getData() != null) {
-//                responseMediatorLiveData.setValue((ApiResponse<BaseResponse<ResultType>>) IOUtils.toObject(newdata.getData()));
-//            } else {
-//                responseMediatorLiveData.setValue(null);
-//            }
-//        });
+        LiveData<CacheEntity> souce = cacheDatabase.cacheEntityDao().LoadCache(cachekey);
+        responseMediatorLiveData.addSource(souce, newdata -> {
+            responseMediatorLiveData.removeSource(souce);
+            if (newdata != null && newdata.getData() != null) {
+                responseMediatorLiveData.setValue((ApiResponse<BaseResponse<ResultType>>) IOUtils.toObject(newdata.getData()));
+            } else {
+                responseMediatorLiveData.setValue(null);
+            }
+        });
         return responseMediatorLiveData;
     }
 

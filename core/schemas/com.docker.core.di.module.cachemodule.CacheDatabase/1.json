@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b17fa40d4187d332338b559db529bafe",
+    "identityHash": "a1de8e97232e6eec5ac528c6936a55a1",
     "entities": [
       {
         "tableName": "CacheEntity",
@@ -39,7 +39,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b17fa40d4187d332338b559db529bafe\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a1de8e97232e6eec5ac528c6936a55a1\")"
     ]
   }
 }

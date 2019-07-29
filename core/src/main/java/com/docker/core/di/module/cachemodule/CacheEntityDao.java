@@ -11,9 +11,12 @@ import android.arch.persistence.room.Query;
 public interface CacheEntityDao {
 
     @Query("SELECT * FROM CacheEntity WHERE cachekey = :key")
-    CacheEntity LoadCache(String key);
+    LiveData<CacheEntity> LoadCache(String key);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Long[] insertCache(CacheEntity... cacheEntities);
+
+
+
 
 }

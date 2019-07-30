@@ -6,10 +6,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+@Entity(primaryKeys = {"cid", "cachekey"})
 public class CacheEntity implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+//    @PrimaryKey(autoGenerate = true)
     private long cid;
 
     @ColumnInfo(name = "cachekey")

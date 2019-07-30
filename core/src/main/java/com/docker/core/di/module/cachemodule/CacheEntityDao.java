@@ -17,6 +17,7 @@ public interface CacheEntityDao {
     Long[] insertCache(CacheEntity... cacheEntities);
 
 
-
+    @Query("SELECT * FROM CacheEntity WHERE cachekey = :key")
+    CacheEntity LoadCacheSync(String key);
 
 }

@@ -28,9 +28,9 @@ public class CacheDatabase_Impl extends CacheDatabase {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
       @Override
       public void createAllTables(SupportSQLiteDatabase _db) {
-        _db.execSQL("CREATE TABLE IF NOT EXISTS `CacheEntity` (`cid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cachekey` TEXT, `data` BLOB)");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `CacheEntity` (`cachekey` TEXT NOT NULL, `data` BLOB, PRIMARY KEY(`cachekey`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a1de8e97232e6eec5ac528c6936a55a1\")");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"70495d2414eb29ceb106bf437adf2be1\")");
       }
 
       @Override
@@ -60,9 +60,8 @@ public class CacheDatabase_Impl extends CacheDatabase {
 
       @Override
       protected void validateMigration(SupportSQLiteDatabase _db) {
-        final HashMap<String, TableInfo.Column> _columnsCacheEntity = new HashMap<String, TableInfo.Column>(3);
-        _columnsCacheEntity.put("cid", new TableInfo.Column("cid", "INTEGER", true, 1));
-        _columnsCacheEntity.put("cachekey", new TableInfo.Column("cachekey", "TEXT", false, 0));
+        final HashMap<String, TableInfo.Column> _columnsCacheEntity = new HashMap<String, TableInfo.Column>(2);
+        _columnsCacheEntity.put("cachekey", new TableInfo.Column("cachekey", "TEXT", true, 1));
         _columnsCacheEntity.put("data", new TableInfo.Column("data", "BLOB", false, 0));
         final HashSet<TableInfo.ForeignKey> _foreignKeysCacheEntity = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesCacheEntity = new HashSet<TableInfo.Index>(0);
@@ -74,7 +73,7 @@ public class CacheDatabase_Impl extends CacheDatabase {
                   + " Found:\n" + _existingCacheEntity);
         }
       }
-    }, "a1de8e97232e6eec5ac528c6936a55a1", "b17fa40d4187d332338b559db529bafe");
+    }, "70495d2414eb29ceb106bf437adf2be1", "19b1441ff5d95db31972fd908777a15f");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)

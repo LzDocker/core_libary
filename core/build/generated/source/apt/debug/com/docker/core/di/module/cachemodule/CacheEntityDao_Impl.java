@@ -26,21 +26,20 @@ public class CacheEntityDao_Impl implements CacheEntityDao {
     this.__insertionAdapterOfCacheEntity = new EntityInsertionAdapter<CacheEntity>(__db) {
       @Override
       public String createQuery() {
-        return "INSERT OR REPLACE INTO `CacheEntity`(`cid`,`cachekey`,`data`) VALUES (nullif(?, 0),?,?)";
+        return "INSERT OR REPLACE INTO `CacheEntity`(`cachekey`,`data`) VALUES (?,?)";
       }
 
       @Override
       public void bind(SupportSQLiteStatement stmt, CacheEntity value) {
-        stmt.bindLong(1, value.getCid());
         if (value.getKey() == null) {
-          stmt.bindNull(2);
+          stmt.bindNull(1);
         } else {
-          stmt.bindString(2, value.getKey());
+          stmt.bindString(1, value.getKey());
         }
         if (value.getData() == null) {
-          stmt.bindNull(3);
+          stmt.bindNull(2);
         } else {
-          stmt.bindBlob(3, value.getData());
+          stmt.bindBlob(2, value.getData());
         }
       }
     };
@@ -84,15 +83,11 @@ public class CacheEntityDao_Impl implements CacheEntityDao {
         }
         final Cursor _cursor = __db.query(_statement);
         try {
-          final int _cursorIndexOfCid = _cursor.getColumnIndexOrThrow("cid");
           final int _cursorIndexOfKey = _cursor.getColumnIndexOrThrow("cachekey");
           final int _cursorIndexOfData = _cursor.getColumnIndexOrThrow("data");
           final CacheEntity _result;
           if(_cursor.moveToFirst()) {
             _result = new CacheEntity();
-            final long _tmpCid;
-            _tmpCid = _cursor.getLong(_cursorIndexOfCid);
-            _result.setCid(_tmpCid);
             final String _tmpKey;
             _tmpKey = _cursor.getString(_cursorIndexOfKey);
             _result.setKey(_tmpKey);

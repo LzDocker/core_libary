@@ -3,15 +3,20 @@ package com.docker.core.di.module.cachemodule;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
-@Entity(primaryKeys = {"cid", "cachekey"})
+
+
+@Entity
 public class CacheEntity implements Serializable {
 
 //    @PrimaryKey(autoGenerate = true)
-    private long cid;
+//    private long cid;
 
+    @NonNull
+    @PrimaryKey
     @ColumnInfo(name = "cachekey")
     private String key;
 
@@ -34,12 +39,12 @@ public class CacheEntity implements Serializable {
         this.key = key;
     }
 
-    public long getCid() {
-        return cid;
-    }
-
-    public void setCid(long cid) {
-        this.cid = cid;
-    }
+//    public long getCid() {
+//        return cid;
+//    }
+//
+//    public void setCid(long cid) {
+//        this.cid = cid;
+//    }
 
 }

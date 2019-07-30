@@ -2,23 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a1de8e97232e6eec5ac528c6936a55a1",
+    "identityHash": "70495d2414eb29ceb106bf437adf2be1",
     "entities": [
       {
         "tableName": "CacheEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cachekey` TEXT, `data` BLOB)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cachekey` TEXT NOT NULL, `data` BLOB, PRIMARY KEY(`cachekey`))",
         "fields": [
-          {
-            "fieldPath": "cid",
-            "columnName": "cid",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
           {
             "fieldPath": "key",
             "columnName": "cachekey",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "data",
@@ -29,9 +23,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "cid"
+            "cachekey"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -39,7 +33,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a1de8e97232e6eec5ac528c6936a55a1\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"70495d2414eb29ceb106bf437adf2be1\")"
     ]
   }
 }

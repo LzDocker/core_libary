@@ -23,6 +23,7 @@ import android.support.v4.view.NestedScrollingParent;
 import android.support.v4.view.NestedScrollingParentHelper;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -61,6 +62,7 @@ import com.docker.core.widget.refresh.listener.OnMultiPurposeListener;
 import com.docker.core.widget.refresh.listener.OnRefreshListener;
 import com.docker.core.widget.refresh.listener.OnRefreshLoadMoreListener;
 import com.docker.core.widget.refresh.listener.OnStateChangedListener;
+import com.docker.core.widget.refresh.listener.SmartScrollingListener;
 import com.docker.core.widget.refresh.util.DelayedRunnable;
 import com.docker.core.widget.refresh.util.DensityUtil;
 import com.docker.core.widget.refresh.util.ViscousFluidInterpolator;
@@ -1093,6 +1095,10 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
             case MotionEvent.ACTION_MOVE:
                 float dx = touchX - mTouchX;
                 float dy = touchY - mTouchY;
+                Log.d("sss", "dispatchTouchEvent: ----------"+mState);
+                if(smartScrollingListener!=null){
+                    smartScrollingListener.onScrollingListener(e,mState,dy);
+                }
                 mVelocityTracker.addMovement(e);//速度追踪
                 if (!mIsBeingDragged && mDragDirection != 'h' && mRefreshContent != null) {//没有拖动之前，检测  canRefresh canLoadMore 来开启拖动
                     if (mDragDirection == 'v' || (Math.abs(dy) >= mTouchSlop && Math.abs(dx) < Math.abs(dy))) {//滑动允许最大角度为45度
@@ -1188,6 +1194,15 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
         //-------------------------------------------------------------------------//
         return super.dispatchTouchEvent(e);
     }
+
+
+
+    private SmartScrollingListener smartScrollingListener;
+
+    public void setSmartScrollingListener(SmartScrollingListener smartScrollingListener){
+        this.smartScrollingListener = smartScrollingListener;
+    }
+
 
     /**
      * 在必要的时候 开始 Fling 模式

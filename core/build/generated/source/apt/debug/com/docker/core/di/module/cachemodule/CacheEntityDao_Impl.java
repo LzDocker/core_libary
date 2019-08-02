@@ -109,4 +109,37 @@ public class CacheEntityDao_Impl implements CacheEntityDao {
       }
     }.getLiveData();
   }
+
+  @Override
+  public CacheEntity LoadCacheSync(String key) {
+    final String _sql = "SELECT * FROM CacheEntity WHERE cachekey = ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    if (key == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, key);
+    }
+    final Cursor _cursor = __db.query(_statement);
+    try {
+      final int _cursorIndexOfKey = _cursor.getColumnIndexOrThrow("cachekey");
+      final int _cursorIndexOfData = _cursor.getColumnIndexOrThrow("data");
+      final CacheEntity _result;
+      if(_cursor.moveToFirst()) {
+        _result = new CacheEntity();
+        final String _tmpKey;
+        _tmpKey = _cursor.getString(_cursorIndexOfKey);
+        _result.setKey(_tmpKey);
+        final byte[] _tmpData;
+        _tmpData = _cursor.getBlob(_cursorIndexOfData);
+        _result.setData(_tmpData);
+      } else {
+        _result = null;
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
 }

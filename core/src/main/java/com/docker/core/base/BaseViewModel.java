@@ -23,6 +23,7 @@ public class BaseViewModel extends ViewModel implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void create() {
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

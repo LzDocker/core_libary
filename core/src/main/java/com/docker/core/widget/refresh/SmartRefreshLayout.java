@@ -227,6 +227,9 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
      * */
     private boolean bdcomplete;
 
+    private boolean bdenable;
+
+
     //</editor-fold>
 
     //<editor-fold desc="构造方法 construction methods">
@@ -308,6 +311,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
         mFooterHeightStatus = ta.hasValue(R.styleable.SmartRefreshLayout_srlFooterHeight) ? DimensionStatus.XmlLayoutUnNotify : mFooterHeightStatus;
 
         bdcomplete = ta.getBoolean(R.styleable.SmartRefreshLayout_bdcomplete, false);
+        bdenable = ta.getBoolean(R.styleable.SmartRefreshLayout_bdenable, true);
 
 
         int accentColor = ta.getColor(R.styleable.SmartRefreshLayout_srlAccentColor, 0);
@@ -343,9 +347,6 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
     //<editor-fold desc="生命周期 life cycle">
 
 
-
-
-
     public boolean getmEnableRefresh() {
         return mEnableRefresh;
     }
@@ -362,10 +363,12 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
             view.setListener(inverseBindingListener::onChange);
         }
     }
+
     @BindingAdapter(value = "srlEnableRefresh")
     public static void setmEnableRefresh(SmartRefreshLayout view, boolean srlEnableRefresh) {
         view.setmEnableRefresh(srlEnableRefresh);
     }
+
     @InverseBindingAdapter(attribute = "srlEnableRefresh", event = "srlEnableRefreshAttrChanged")
     public static boolean getSrlEnableRefreshAttrChanged(SmartRefreshLayout view) {
         return view.getmEnableRefresh();
@@ -380,7 +383,6 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
     }
 
 
-
     @BindingAdapter("SrlEnableLoadMoreAttrChanged")
     public static void setSrlEnableLoadMoreAttrChanged(SmartRefreshLayout view, InverseBindingListener inverseBindingListener) {
         if (inverseBindingListener == null) {
@@ -389,16 +391,46 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
             view.setListener(inverseBindingListener::onChange);
         }
     }
+
     @BindingAdapter(value = "SrlEnableLoadMore")
     public static void setmEnableLoadMore(SmartRefreshLayout view, boolean setSrlEnableLoadMore) {
         view.setmEnableLoadMore(setSrlEnableLoadMore);
     }
+
     @InverseBindingAdapter(attribute = "srlEnableRefresh", event = "srlEnableRefreshAttrChanged")
     public static boolean getmEnableLoadMoreAttrChanged(SmartRefreshLayout view) {
         return view.getmEnableLoadMore();
     }
 
 
+    public boolean getBdenable() {
+        return bdenable;
+    }
+
+    public void setBdenable(boolean bdenable) {
+        this.bdenable = bdenable;
+    }
+
+    @BindingAdapter("bdenableAttrChanged")
+    public static void setRefreshbdenableAttrChanged(SmartRefreshLayout view, InverseBindingListener inverseBindingListener) {
+        if (inverseBindingListener == null) {
+            view.setListener(null);
+        } else {
+            view.setListener(inverseBindingListener::onChange);
+        }
+    }
+
+    @BindingAdapter(value = "bdenable", requireAll = false)
+    public static void setbdenable(SmartRefreshLayout view, boolean bdenable) {
+        view.setBdenable(bdenable);
+        view.setEnableRefresh(bdenable);
+        view.setEnableLoadMore(bdenable);
+    }
+
+    @InverseBindingAdapter(attribute = "bdenable", event = "bdenableAttrChanged")
+    public static boolean getbdenable(SmartRefreshLayout view) {
+        return view.getBdenable();
+    }
 
 
     public boolean getBdcomplete() {
@@ -418,7 +450,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
         }
     }
 
-    @BindingAdapter(value = "bdcomplete",requireAll = false)
+    @BindingAdapter(value = "bdcomplete", requireAll = false)
     public static void setcomplete(SmartRefreshLayout view, boolean bdcomplete) {
         view.setBdcomplete(bdcomplete);
         if (!bdcomplete) {
@@ -429,6 +461,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
             view.finishLoadMore();
         }
     }
+
     @InverseBindingAdapter(attribute = "bdcomplete", event = "bdcompleteAttrChanged")
     public static boolean getcomplete(SmartRefreshLayout view) {
         return view.getBdcomplete();
@@ -1095,9 +1128,8 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
             case MotionEvent.ACTION_MOVE:
                 float dx = touchX - mTouchX;
                 float dy = touchY - mTouchY;
-                Log.d("sss", "dispatchTouchEvent: ----------"+mState);
-                if(smartScrollingListener!=null){
-                    smartScrollingListener.onScrollingListener(e,mState,dy);
+                if (smartScrollingListener != null) {
+                    smartScrollingListener.onScrollingListener(e, mState, dy);
                 }
                 mVelocityTracker.addMovement(e);//速度追踪
                 if (!mIsBeingDragged && mDragDirection != 'h' && mRefreshContent != null) {//没有拖动之前，检测  canRefresh canLoadMore 来开启拖动
@@ -1196,10 +1228,9 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
     }
 
 
-
     private SmartScrollingListener smartScrollingListener;
 
-    public void setSmartScrollingListener(SmartScrollingListener smartScrollingListener){
+    public void setSmartScrollingListener(SmartScrollingListener smartScrollingListener) {
         this.smartScrollingListener = smartScrollingListener;
     }
 
@@ -3514,8 +3545,8 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
 
         /**
          * 移动滚动 Scroll
-         * moveSpinner 的取名来自 谷歌官方的 {@link android.support.v4.widget.SwipeRefreshLayout#moveSpinner(float)}
-         * moveSpinner The name comes from {@link android.support.v4.widget.SwipeRefreshLayout#moveSpinner(float)}
+         * moveSpinner 的取名来自 谷歌官方的 {@link}
+         * moveSpinner The name comes from {@link }
          *
          * @param spinner    新的 spinner
          * @param isDragging 是否是拖动产生的滚动

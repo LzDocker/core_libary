@@ -136,6 +136,7 @@
         <attr format="reference" name="srlFixedFooterViewId"/>
 
         <attr format="boolean" name="bdcomplete"/>
+        <attr format="boolean" name="bdenable"/>
 
     </declare-styleable>
     <declare-styleable name="SmartRefreshLayout_Layout">

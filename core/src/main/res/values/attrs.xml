@@ -92,6 +92,7 @@
         <attr name="srlFixedFooterViewId" format="reference"/>
 
         <attr name="bdcomplete" format="boolean"/>
+        <attr name="bdenable" format="boolean"/>
 
     </declare-styleable>
 

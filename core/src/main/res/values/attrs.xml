@@ -93,6 +93,7 @@
 
         <attr name="bdcomplete" format="boolean"/>
         <attr name="bdenable" format="boolean"/>
+        <attr name="bdenablemore" format="boolean"/>
 
     </declare-styleable>
 

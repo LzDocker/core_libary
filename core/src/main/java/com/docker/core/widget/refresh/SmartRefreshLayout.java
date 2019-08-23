@@ -228,6 +228,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
     private boolean bdcomplete;
 
     private boolean bdenable;
+    private boolean bdenablemore;
 
 
     //</editor-fold>
@@ -311,7 +312,8 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
         mFooterHeightStatus = ta.hasValue(R.styleable.SmartRefreshLayout_srlFooterHeight) ? DimensionStatus.XmlLayoutUnNotify : mFooterHeightStatus;
 
         bdcomplete = ta.getBoolean(R.styleable.SmartRefreshLayout_bdcomplete, false);
-        bdenable = ta.getBoolean(R.styleable.SmartRefreshLayout_bdenable, true);
+        bdenable = ta.getBoolean(R.styleable.SmartRefreshLayout_bdenable, false);
+        bdenablemore = ta.getBoolean(R.styleable.SmartRefreshLayout_bdenablemore, false);
 
 
         int accentColor = ta.getColor(R.styleable.SmartRefreshLayout_srlAccentColor, 0);
@@ -403,6 +405,36 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
     }
 
 
+    public boolean getBdenablemore() {
+        return bdenablemore;
+    }
+
+    public void setBdenablemore(boolean bdenablemore) {
+        this.bdenablemore = bdenablemore;
+    }
+
+    @BindingAdapter("bdenablemoreAttrChanged")
+    public static void setRefresbdenablemoreAttrChanged(SmartRefreshLayout view, InverseBindingListener inverseBindingListener) {
+        if (inverseBindingListener == null) {
+            view.setListener(null);
+        } else {
+            view.setListener(inverseBindingListener::onChange);
+        }
+    }
+
+    @BindingAdapter(value = "bdenablemore", requireAll = false)
+    public static void setbdenablemore(SmartRefreshLayout view, boolean bdenablemore) {
+        view.setBdenablemore(bdenablemore);
+        view.setEnableLoadMore(bdenablemore);
+    }
+
+    @InverseBindingAdapter(attribute = "bdenablemore", event = "bdenablemoreAttrChanged")
+    public static boolean getBdenablemore(SmartRefreshLayout view) {
+        return view.getBdenablemore();
+    }
+
+
+    ///////
     public boolean getBdenable() {
         return bdenable;
     }
@@ -423,7 +455,6 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
     @BindingAdapter(value = "bdenable", requireAll = false)
     public static void setbdenable(SmartRefreshLayout view, boolean bdenable) {
         view.setBdenable(bdenable);
-        view.setEnableRefresh(bdenable);
         view.setEnableLoadMore(bdenable);
     }
 
@@ -432,7 +463,7 @@ public class SmartRefreshLayout extends ViewGroup implements RefreshLayout, Nest
         return view.getBdenable();
     }
 
-
+    //------------------------------------
     public boolean getBdcomplete() {
         return bdcomplete;
     }

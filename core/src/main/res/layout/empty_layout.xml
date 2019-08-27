@@ -66,7 +66,7 @@
                 android:layout_height="125dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon_empty_y" />
+                android:src="@drawable/icon_empty_wj" />
 
             <TextView
                 android:id="@+id/common_tv_nodata"

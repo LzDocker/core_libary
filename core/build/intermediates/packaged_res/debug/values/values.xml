@@ -137,6 +137,7 @@
 
         <attr format="boolean" name="bdcomplete"/>
         <attr format="boolean" name="bdenable"/>
+        <attr format="boolean" name="bdenablemore"/>
 
     </declare-styleable>
     <declare-styleable name="SmartRefreshLayout_Layout">

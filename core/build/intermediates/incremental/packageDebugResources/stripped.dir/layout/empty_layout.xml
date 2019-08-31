@@ -58,15 +58,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            >
 
             <ImageView
                 android:id="@+id/common_iv_nodata"
                 android:layout_width="120dp"
                 android:layout_height="125dp"
                 android:layout_gravity="center_horizontal"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icon_empty_y" />
+                android:src="@drawable/icon_empty_wj" />
 
             <TextView
                 android:id="@+id/common_tv_nodata"
@@ -75,7 +75,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text=""
+                android:text="还没有内容哦～"
                 android:textColor="#999" />
 
         </LinearLayout>

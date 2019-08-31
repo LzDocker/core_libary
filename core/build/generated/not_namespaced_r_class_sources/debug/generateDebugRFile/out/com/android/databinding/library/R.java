@@ -12,15 +12,15 @@ public final class R {
     public static final class attr {
         private attr() {}
 
-        public static int font = 0x7f0400d3;
-        public static int fontProviderAuthority = 0x7f0400d5;
-        public static int fontProviderCerts = 0x7f0400d6;
-        public static int fontProviderFetchStrategy = 0x7f0400d7;
-        public static int fontProviderFetchTimeout = 0x7f0400d8;
-        public static int fontProviderPackage = 0x7f0400d9;
-        public static int fontProviderQuery = 0x7f0400da;
-        public static int fontStyle = 0x7f0400db;
-        public static int fontWeight = 0x7f0400dd;
+        public static int font = 0x7f0400d4;
+        public static int fontProviderAuthority = 0x7f0400d6;
+        public static int fontProviderCerts = 0x7f0400d7;
+        public static int fontProviderFetchStrategy = 0x7f0400d8;
+        public static int fontProviderFetchTimeout = 0x7f0400d9;
+        public static int fontProviderPackage = 0x7f0400da;
+        public static int fontProviderQuery = 0x7f0400db;
+        public static int fontStyle = 0x7f0400dc;
+        public static int fontWeight = 0x7f0400de;
     }
     public static final class bool {
         private bool() {}
@@ -62,18 +62,18 @@ public final class R {
     public static final class drawable {
         private drawable() {}
 
-        public static int notification_action_background = 0x7f090069;
-        public static int notification_bg = 0x7f09006a;
-        public static int notification_bg_low = 0x7f09006b;
-        public static int notification_bg_low_normal = 0x7f09006c;
-        public static int notification_bg_low_pressed = 0x7f09006d;
-        public static int notification_bg_normal = 0x7f09006e;
-        public static int notification_bg_normal_pressed = 0x7f09006f;
-        public static int notification_icon_background = 0x7f090070;
-        public static int notification_template_icon_bg = 0x7f090071;
-        public static int notification_template_icon_low_bg = 0x7f090072;
-        public static int notification_tile_bg = 0x7f090073;
-        public static int notify_panel_notification_icon_bg = 0x7f090074;
+        public static int notification_action_background = 0x7f09006a;
+        public static int notification_bg = 0x7f09006b;
+        public static int notification_bg_low = 0x7f09006c;
+        public static int notification_bg_low_normal = 0x7f09006d;
+        public static int notification_bg_low_pressed = 0x7f09006e;
+        public static int notification_bg_normal = 0x7f09006f;
+        public static int notification_bg_normal_pressed = 0x7f090070;
+        public static int notification_icon_background = 0x7f090071;
+        public static int notification_template_icon_bg = 0x7f090072;
+        public static int notification_template_icon_low_bg = 0x7f090073;
+        public static int notification_tile_bg = 0x7f090074;
+        public static int notify_panel_notification_icon_bg = 0x7f090075;
     }
     public static final class id {
         private id() {}
@@ -139,14 +139,14 @@ public final class R {
     public static final class styleable {
         private styleable() {}
 
-        public static int[] FontFamily = { 0x7f0400d5, 0x7f0400d6, 0x7f0400d7, 0x7f0400d8, 0x7f0400d9, 0x7f0400da };
+        public static int[] FontFamily = { 0x7f0400d6, 0x7f0400d7, 0x7f0400d8, 0x7f0400d9, 0x7f0400da, 0x7f0400db };
         public static int FontFamily_fontProviderAuthority = 0;
         public static int FontFamily_fontProviderCerts = 1;
         public static int FontFamily_fontProviderFetchStrategy = 2;
         public static int FontFamily_fontProviderFetchTimeout = 3;
         public static int FontFamily_fontProviderPackage = 4;
         public static int FontFamily_fontProviderQuery = 5;
-        public static int[] FontFamilyFont = { 0x1010532, 0x101053f, 0x1010570, 0x1010533, 0x101056f, 0x7f0400d3, 0x7f0400db, 0x7f0400dc, 0x7f0400dd, 0x7f040216 };
+        public static int[] FontFamilyFont = { 0x1010532, 0x101053f, 0x1010570, 0x1010533, 0x101056f, 0x7f0400d4, 0x7f0400dc, 0x7f0400dd, 0x7f0400de, 0x7f040217 };
         public static int FontFamilyFont_android_font = 0;
         public static int FontFamilyFont_android_fontStyle = 1;
         public static int FontFamilyFont_android_fontVariationSettings = 2;

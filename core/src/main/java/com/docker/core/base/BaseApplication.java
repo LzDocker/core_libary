@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ContentProvider;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
@@ -106,6 +107,7 @@ public abstract class BaseApplication extends MultiDexApplication implements Has
                     public Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response) {
                         return response;
                     }
+
                     @Override
                     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
                         return request;
@@ -116,6 +118,7 @@ public abstract class BaseApplication extends MultiDexApplication implements Has
     protected HttpClientModule getHttpClientModule() {
         return new HttpClientModule(instance);
     }
+
     protected CacheModule getCacheModule() {
         return new CacheModule(this);
     }
@@ -148,5 +151,16 @@ public abstract class BaseApplication extends MultiDexApplication implements Has
     @Override
     public AndroidInjector<android.support.v4.app.Fragment> supportFragmentInjector() {
         return supportFragmentInjector;
+    }
+
+    @Override
+    public Resources getResources() {//禁止app字体大小跟随系统字体大小调节
+        Resources resources = super.getResources();
+        if (resources != null && resources.getConfiguration().fontScale != 1.0f) {
+            android.content.res.Configuration configuration = resources.getConfiguration();
+            configuration.fontScale = 1.0f;
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        }
+        return resources;
     }
 }

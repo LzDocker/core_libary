@@ -68,6 +68,7 @@ public class simpleApp extends BaseApplication {
                 .globeHttpHandler(new HttpRequestHandler() {
                     @Override
                     public Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response) {
+
                         return response;
                     }
                     @Override

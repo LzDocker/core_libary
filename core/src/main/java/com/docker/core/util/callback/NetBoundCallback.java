@@ -1,6 +1,7 @@
 package com.docker.core.util.callback;
 
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.docker.core.base.basehivs.HivsBaseViewModel;
 import com.docker.core.repository.Resource;
 import com.docker.core.widget.emptylayout.EmptyStatus;
@@ -54,7 +55,7 @@ public abstract class NetBoundCallback<T> {
 
     public void onBusinessError(Resource<T> resource) {
         if (resource.message != null) {
-//            ToastUtils.showShort(resource.message);
+            ToastUtils.showShort(resource.message);
         }
         if (baseViewModel != null) {
 
@@ -76,7 +77,7 @@ public abstract class NetBoundCallback<T> {
 
     public void onNetworkError(Resource<T> resource) {
         if (resource.message != null) {
-//            ToastUtils.showShort(resource.message);
+            ToastUtils.showShort(resource.message);
         }
         if (baseViewModel != null) {
             if (baseViewModel.mPage == 1 && resource.data == null) {

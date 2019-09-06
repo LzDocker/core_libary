@@ -17,6 +17,7 @@ import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -56,27 +57,47 @@ public class RequestInterceptor implements Interceptor {
                 // do something before http request like adding specific headers.
                 request = mHttpRequestHandler.onHttpRequestBefore(chain, request);
             }
+            Response originalResponse;
+            if (request != null) {
+                originalResponse = chain.proceed(request);
 
-            Response originalResponse = chain.proceed(request);
-            ResponseBody responseBody = originalResponse.body();
+            } else {
+                originalResponse = new okhttp3.Response.Builder()
+                        .code(404) // 其实code可以随便给
+                        .protocol(Protocol.HTTP_2)
+                        .message("Network is closed by mom")
+                        .body(ResponseBody.create(MediaType.parse("text/html; charset=utf-8"), "")) // 返回空页面
+                        .request(chain.request())
+                        .build();
+            }
 
             if (mHttpRequestHandler != null) {
-                originalResponse = mHttpRequestHandler.onHttpResultResponse(responseBody.toString(), chain, originalResponse);
+                originalResponse = mHttpRequestHandler.onHttpResultResponse(originalResponse.body().toString(), chain, originalResponse);
             }
             Log.d("Request: ", request.toString() + "Headers:-----" + bodyToString(request.headers()) + "----Params:" + bodyToString(request.body()));
 
             return originalResponse;
         } else {
             if (mHttpRequestHandler != null) {
-                // do something before http request like adding specific headers.
                 originrequest = mHttpRequestHandler.onHttpRequestBefore(chain, originrequest);
             }
-            Response originalResponse = chain.proceed(originrequest);
-            ResponseBody responseBody = originalResponse.body();
-            if (mHttpRequestHandler != null) {
-                originalResponse = mHttpRequestHandler.onHttpResultResponse(responseBody.toString(), chain, originalResponse);
+            Response originalResponse;
+            if (originrequest == null) {
+                originalResponse = new okhttp3.Response.Builder()
+                        .code(404) // 其实code可以随便给
+                        .protocol(Protocol.HTTP_2)
+                        .message("Network is closed by mom")
+                        .body(ResponseBody.create(MediaType.parse("text/html; charset=utf-8"), "")) // 返回空页面
+                        .request(chain.request())
+                        .build();
+            } else {
+                originalResponse = chain.proceed(originrequest);
+                Log.d("Request: ", originrequest.toString() + "Headers:------" + bodyToString(originrequest.headers()) + "----Params:" + bodyToString(originrequest.body()));
+
             }
-            Log.d("Request: ", originrequest.toString() + "Headers:------" + bodyToString(originrequest.headers()) + "----Params:" + bodyToString(originrequest.body()));
+            if (mHttpRequestHandler != null) {
+                originalResponse = mHttpRequestHandler.onHttpResultResponse(originalResponse.body().toString(), chain, originalResponse);
+            }
 
             return originalResponse;
         }

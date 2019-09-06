@@ -54,14 +54,14 @@ public class RequestInterceptor implements Interceptor {
             Request request = newBuilder.build();
             if (mHttpRequestHandler != null) {
                 // do something before http request like adding specific headers.
-                mHttpRequestHandler.onHttpRequestBefore(chain, request);
+                request = mHttpRequestHandler.onHttpRequestBefore(chain, request);
             }
 
             Response originalResponse = chain.proceed(request);
             ResponseBody responseBody = originalResponse.body();
 
             if (mHttpRequestHandler != null) {
-                mHttpRequestHandler.onHttpResultResponse(responseBody.toString(), chain, originalResponse);
+                originalResponse = mHttpRequestHandler.onHttpResultResponse(responseBody.toString(), chain, originalResponse);
             }
             Log.d("Request: ", request.toString() + "Headers:-----" + bodyToString(request.headers()) + "----Params:" + bodyToString(request.body()));
 
@@ -69,12 +69,12 @@ public class RequestInterceptor implements Interceptor {
         } else {
             if (mHttpRequestHandler != null) {
                 // do something before http request like adding specific headers.
-                mHttpRequestHandler.onHttpRequestBefore(chain, originrequest);
+                originrequest = mHttpRequestHandler.onHttpRequestBefore(chain, originrequest);
             }
             Response originalResponse = chain.proceed(originrequest);
             ResponseBody responseBody = originalResponse.body();
             if (mHttpRequestHandler != null) {
-                mHttpRequestHandler.onHttpResultResponse(responseBody.toString(), chain, originalResponse);
+                originalResponse = mHttpRequestHandler.onHttpResultResponse(responseBody.toString(), chain, originalResponse);
             }
             Log.d("Request: ", originrequest.toString() + "Headers:------" + bodyToString(originrequest.headers()) + "----Params:" + bodyToString(originrequest.body()));
 

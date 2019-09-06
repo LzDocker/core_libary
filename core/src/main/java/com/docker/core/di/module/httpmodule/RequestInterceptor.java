@@ -63,9 +63,9 @@ public class RequestInterceptor implements Interceptor {
 
             } else {
                 originalResponse = new okhttp3.Response.Builder()
-                        .code(404) // 其实code可以随便给
+                        .code(505) // 其实code可以随便给
                         .protocol(Protocol.HTTP_2)
-                        .message("Network is closed by mom")
+                        .message("Network is closed by login")
                         .body(ResponseBody.create(MediaType.parse("text/html; charset=utf-8"), "")) // 返回空页面
                         .request(chain.request())
                         .build();
@@ -84,9 +84,9 @@ public class RequestInterceptor implements Interceptor {
             Response originalResponse;
             if (originrequest == null) {
                 originalResponse = new okhttp3.Response.Builder()
-                        .code(404) // 其实code可以随便给
+                        .code(505) // 其实code可以随便给
                         .protocol(Protocol.HTTP_2)
-                        .message("Network is closed by mom")
+                        .message("Network is closed by login")
                         .body(ResponseBody.create(MediaType.parse("text/html; charset=utf-8"), "")) // 返回空页面
                         .request(chain.request())
                         .build();

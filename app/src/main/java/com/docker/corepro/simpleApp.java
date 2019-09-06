@@ -72,7 +72,7 @@ public class simpleApp extends BaseApplication {
                     }
                     @Override
                     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
-                        return request;
+                        return null;
                     }
                 }).build();
     }

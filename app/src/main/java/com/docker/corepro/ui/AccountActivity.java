@@ -261,22 +261,22 @@ public class AccountActivity extends HivsBaseActivity<AccountViewModel, Activity
 
     private void login() {
 //        chechParam();
-//        mViewModel.Login(registerVo.getUsername(), registerVo.getPassword());
+        mViewModel.Login(registerVo.getUsername(), registerVo.getPassword());
 
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET).subscribe(new Consumer<Boolean>() {
-            @Override
-            public void accept(Boolean aBoolean) throws Exception {
-                if (aBoolean) {
-                    //申请的权限全部允许
-                    Toast.makeText(AccountActivity.this, "允许了权限!", Toast.LENGTH_SHORT).show();
-                    download();
-                } else {
-                    //只要有一个权限被拒绝，就会执行
-                    Toast.makeText(AccountActivity.this, "未授权权限，部分功能不能使用", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        RxPermissions rxPermissions = new RxPermissions(this);
+//        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET).subscribe(new Consumer<Boolean>() {
+//            @Override
+//            public void accept(Boolean aBoolean) throws Exception {
+//                if (aBoolean) {
+//                    //申请的权限全部允许
+//                    Toast.makeText(AccountActivity.this, "允许了权限!", Toast.LENGTH_SHORT).show();
+//                    download();
+//                } else {
+//                    //只要有一个权限被拒绝，就会执行
+//                    Toast.makeText(AccountActivity.this, "未授权权限，部分功能不能使用", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
     }
 
